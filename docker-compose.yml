@@ -1,0 +1,20 @@
+# Local dev convenience: just the database. Run the backend/frontend with
+# `npm run dev` from the repo root — see README.md.
+services:
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pos
+      MYSQL_USER: pos
+      MYSQL_PASSWORD: pos
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "pos", "-ppos"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
