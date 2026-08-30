@@ -1,9 +1,16 @@
 import { channelRepository } from "../repositories/channelRepository";
 import { AppError } from "../utils/AppError";
-import { Channel, ChatMessage } from "../types/domain";
+import { Channel, ChannelSummary, ChatMessage } from "../types/domain";
 
 export const chatService = {
-  list: (): Promise<Channel[]> => channelRepository.findAll(),
+  async list(): Promise<ChannelSummary[]> {
+    const channels = await channelRepository.findAll();
+    return Promise.all(channels.map(async c => {
+      const messages = await channelRepository.messagesFor(c.id);
+      const last = messages[messages.length - 1];
+      return { ...c, preview: last ? `${last.from}: ${last.body}` : "No messages yet" };
+    }));
+  },
 
   async open(channelId: string): Promise<{ channel: Channel; messages: ChatMessage[] }> {
     const channel = await channelRepository.findById(channelId);

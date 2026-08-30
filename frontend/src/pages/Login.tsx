@@ -67,7 +67,7 @@ export function LoginPage() {
       <div className="grid place-items-center p-14">
         <BlueprintPanel className="w-[380px] p-8">
           {mode === "signIn" ? (
-            <form onSubmit={handleSignIn} className="flex flex-col gap-4.5">
+            <form onSubmit={handleSignIn} className="flex flex-col gap-[18px]">
               <h3 className="text-[27px] mb-2">Sign in</h3>
               <Field label="Email">
                 <Input type="email" value={email} onChange={e => setEmail(e.target.value)} className="min-h-[42px]" required />
@@ -100,7 +100,7 @@ export function LoginPage() {
               </Button>
             </form>
           ) : (
-            <form onSubmit={handleReset} className="flex flex-col gap-4.5">
+            <form onSubmit={handleReset} className="flex flex-col gap-[18px]">
               <h3 className="text-[27px] mb-2.5">Reset password</h3>
               <p className="text-[13px] text-ink/70 mb-1">We will email a single-use link to the address on the account.</p>
               <Field label="Account email">

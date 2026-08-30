@@ -106,6 +106,10 @@ export interface Channel {
   unread: number;
 }
 
+export interface ChannelSummary extends Channel {
+  preview: string;
+}
+
 export interface ChatMessage {
   id: number;
   channelId: string;
